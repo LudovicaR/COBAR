@@ -1,58 +1,58 @@
 import cropImages as crop
 
-#"""Dorsal"""
-#path = 'Behavior_Flies/Dorsal'
-#name_type = 'dorsal'
-#
-##first box: 
-#box1_size = [80, 215, 290, 1070]
-#
-##second box: 
-#box2_size = [255, 390, 290, 1070]
-#
-##third box:
-#box3_size = [420, 555, 290, 1070]
-#
-##fourth box: 
-#box4_size = [600, 735, 290, 1070]
-#
-##fifth box: 
-#box5_size = [755, 890, 290, 1070]
-#
-#dorsalDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
-
-
-"""GFP"""
-path = 'Behavior_Flies/GFP'
-name_type = 'gfp'
+"""Dorsal"""
+path = 'Behavior_Flies_selected/Dorsal'
+name_type = 'dorsal'
 
 #first box: 
-box1_size = [110, 240, 300, 1070]
+box1_size = [80, 210, 290, 1070]
 
 #second box: 
-box2_size = [280, 410, 300, 1070]
+box2_size = [255, 390, 290, 1070]
 
 #third box:
-box3_size = [445, 575, 300, 1070]
+box3_size = [420, 555, 300, 1070]
 
 #fourth box: 
-box4_size = [610, 740, 300, 1070]
+box4_size = [615, 710, 300, 1060]
 
 #fifth box: 
-box5_size = [770, 900, 300, 1070]
+box5_size = [770, 875, 300, 1060]
 
-gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
+#"""GFP"""
+#path = 'Behavior_Flies_selected/GFP'
+#name_type = 'gfp'
+#
+##first box: 
+#box1_size = [110, 240, 300, 1070]
+#
+##second box: 
+#box2_size = [280, 410, 300, 1070]
+#
+##third box:
+#box3_size = [445, 575, 300, 1060]
+#
+##fourth box: 
+#box4_size = [615, 735, 300, 1060]
+#
+##fifth box: 
+#box5_size = [780, 895, 300, 1060]
+#
+#gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#
+#
 #"""EagDN"""
-#path = 'Behavior_Flies/EagDN'
+#path = 'Behavior_Flies_selected/EagDN'
 #name_type = 'eagdn'
 #
 ##first box: 
-#box1_size = [60, 190, 300, 1060]
+#box1_size = [70, 180, 300, 1060]
 #
 ##second box: 
-#box2_size = [210, 340, 300, 1060]
+#box2_size = [215, 340, 300, 1060]
 #
 ##third box:
 #box3_size = [390, 520, 300, 1060]
@@ -61,35 +61,37 @@ gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box
 #box4_size = [550, 680, 300, 1060]
 #
 ##fifth box: 
-#box5_size = [720, 850, 300, 1060]
+#box5_size = [730, 835, 300, 1060]
 #
 #eagdnDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 #
 #
 #"""TNT"""
-#path = 'Behavior_Flies/TNT'
+#path = 'Behavior_Flies_selected/TNT'
 #name_type = 'tnt'
 #
 ##first box: 
-#box1_size = [90, 210, 300, 1080]
+#box1_size = [90, 210, 295, 1080]
 #
 ##second box: 
-#box2_size = [260, 380, 290, 1070]
+#box2_size = [260, 380, 295, 1075]
 #
 ##third box:
-#box3_size = [425, 545, 290, 1070]
+#box3_size = [425, 555, 300, 1075]
 #
 ##fourth box: 
-#box4_size = [595, 715, 290, 1070]
+#box4_size = [595, 715, 300, 1075]
 #
 ##fifth box: 
-#box5_size = [760, 880, 290, 1070]
+#box5_size = [760, 880, 300, 1070]
 #
 #tntDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 #
+#print(tntDf)
+#
 #
 #"""ShalRNA"""
-#path = 'Behavior_Flies/ShalRNA'
+#path = 'Behavior_Flies_selected/ShalRNA'
 #name_type = 'shalrna'
 #
 ##first box: 
@@ -111,20 +113,20 @@ gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box
 #
 #
 #"""IMPTNT"""
-#path = 'Behavior_Flies/IMPTNT'
+#path = 'Behavior_Flies_selected/IMPTNT'
 #name_type = 'imptnt'
 #
 ##first box: 
-#box1_size = [180, 305, 260, 1030]
+#box1_size = [180, 305, 260, 1035]
 #
 ##second box: 
 #box2_size = [350, 475, 265, 1035]
 #
 ##third box:
-#box3_size = [510, 635, 270, 1040]
+#box3_size = [510, 635, 270, 1035]
 #
 ##fourth box: 
-#box4_size = [675, 795, 270, 1040]
+#box4_size = [675, 795, 270, 1035]
 #
 ##fifth box: 
 #box5_size = [] # No Flies
@@ -133,11 +135,11 @@ gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box
 #
 #
 #"""Hunchback"""
-#path = 'Behavior_Flies/Hunchback'
+#path = 'Behavior_Flies_selected/Hunchback'
 #name_type = 'hunchback'
 #
 ##first box: 
-#box1_size = [70, 200, 310, 1070]
+#box1_size = [70, 195, 310, 1070]
 #
 ##second box: 
 #box2_size = [235, 365, 310, 1070]
@@ -146,10 +148,10 @@ gfpDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box
 #box3_size = [400, 530, 310, 1070]
 #
 ##fourth box: 
-#box4_size = [560, 690, 310, 1070]
+#box4_size = [565, 685, 310, 1070]
 #
 ##fifth box: 
-#box5_size = [720, 850, 310, 1070]
+#box5_size = [730, 845, 310, 1070]
 #
 #hunchbackDf = crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 #
