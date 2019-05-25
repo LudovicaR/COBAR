@@ -2,12 +2,12 @@ import glob
 
 import pandas as pd
 import numpy as np
+from numpy import linalg as LA
 
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 import cv2
-#import numpy as np
-#from matplotlib import pyplot as plt
 
 def findCentroid(img, file):
     
@@ -205,6 +205,8 @@ def analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, b
         centroidsDf.to_csv(folder+"/centroids.csv", index = None, header=True)
         headsDf.to_csv(folder+"/heads.csv", index = None, header=True)
 
+        ## CREATE THE VIDEOS ##
+
 #        height, width, _ = box1.shape
 #        size = (width,height)
 #        out = cv2.VideoWriter('./Videos/'+name_type+'1_' + str(folders.index(folder))+ '_' + str(files.index(file)) + '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1, size)
@@ -240,6 +242,21 @@ def analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, b
 #            for i in range(len(img_array5)):
 #                out.write(img_array5[i])
 #            out.release()
+        
+        
+def velocity_calculator(points):
     
-    return geneDf
+    diff=points[-1]-points[0]
+    
+    time=8*len(points)/56
+
+    v_x=diff[0]/time
+    v_y=diff[1]/time
+    velocities=[v_x,v_y]
+
+    velocity = LA.norm(velocities)
+
+    return velocity, v_x, v_y
+
+    
 
