@@ -2,14 +2,11 @@ import glob
 
 import pandas as pd
 import numpy as np
-from numpy import linalg as LA
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 import cv2
 
 def findCentroid(img, file):
+    """Function that detects the centroid and the head position of the fly by applying image processing techniques."""
     
     print(file)
     
@@ -158,8 +155,10 @@ def findCentroid(img, file):
     return x_centroid, y_centroid, x_head, y_head
 
 
-
 def analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size):
+    """Function that performs the images' analysis, for which centroids and head positions are found.
+    It stores all the points in csv files and creates videos with indicated the position of the centroid and head on the fly's body.
+    """
     
     folders = [f for f in sorted(glob.glob(path + "/**"))]
     

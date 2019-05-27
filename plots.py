@@ -23,7 +23,7 @@ def reformatCsv(folder, flies_to_remove):
     heads.to_csv(folder+ "heads_sorted.csv", index=False)
     
 
-def velocity_calculator(df_centroids):
+def velocity_calculator(df_centroids, pixels_x, pixels_y):
     """Function that calculates the velocity of each fly.
     'df' is the data frame that contains all the detected centroids"""
     
@@ -54,13 +54,18 @@ def velocity_calculator(df_centroids):
     # calculate the velocities, by using the centroids and the calculated times
     for t in range(len(time_points)): 
         if ((t+1)>=len(time_points))==False:
+            
             first_centroid_x = df_centroids[flies_x].iloc[time_points[t]]
             second_centroid_x = df_centroids[flies_x].iloc[time_points[t+1]]
-            diff_x=second_centroid_x-first_centroid_x
+            # we find the distance covered  in x and convert it in mm
+            size_lane_x = 3.5
+            diff_x=(second_centroid_x-first_centroid_x)*(size_lane_x/pixels_x)
 
             first_centroid_y = df_centroids[flies_y].iloc[time_points[t]]
             second_centroid_y = df_centroids[flies_y].iloc[time_points[t+1]]
-            diff_y=second_centroid_y-first_centroid_y
+            # we find the distance covered in y and convert it in mm
+            size_lane_y = 22
+            diff_y=(second_centroid_y-first_centroid_y)*(size_lane_y/pixels_y)
 
             v_x.append(diff_x/time)
             v_y.append(diff_y/time)
@@ -81,13 +86,13 @@ def velocity_boxplots(df, velocity_ID, gene_name, num_trials):
     plt.rcParams['font.size'] = 16
     ax=sns.boxplot(x="fly", y=velocity_ID, data=df)
     plt.xlabel('Flies')
-    plt.ylabel(velocity_ID+"(in pixels/second)")
+    plt.ylabel(velocity_ID+"(in mm/second)")
     plt.title('%s for every fly, Gene %s for %s trial(s).png' %(velocity_ID, gene_name , num_trials))
     plt.savefig('Boxplot_%s_%s for %s trial(s).png' %(gene_name, velocity_ID, num_trials))
     #plt.show()
 
 
-def velocity_analysis(gene_name, num_trials):
+def velocity_analysis(gene_name, num_trials, pixels_x, pixels_y):
     """Function that calls the 'velocity_boxplots' and generate the plots for all the trials for a specific gene strain"""
     
     flies = np.array([1,2,3,4,5])
@@ -102,7 +107,7 @@ def velocity_analysis(gene_name, num_trials):
         if trial==0:
             centroids = pd.read_csv("Behavior_Flies_selected/" + str(gene_name)+"/"+str(gene_name)+"_"+str(trial+1)+"/centroids_sorted.csv")
 
-            velocity_per_fly, v_x, v_y = velocity_calculator(centroids)
+            velocity_per_fly, v_x, v_y = velocity_calculator(centroids, pixels_x, pixels_y)
             
             for speeds in range(0,len(velocity_per_fly),len(v_x)):
                     all_velocities.append(np.nanmean(velocity_per_fly[0+speeds:speeds+len(v_x)]))
@@ -112,7 +117,7 @@ def velocity_analysis(gene_name, num_trials):
         else:
             centroids = pd.read_csv("Behavior_Flies_selected/" + str(gene_name)+"/"+str(gene_name)+"_"+str(trial+1)+"/centroids_sorted.csv")
 
-            velocity_per_fly, v_x, v_y = velocity_calculator(centroids)
+            velocity_per_fly, v_x, v_y = velocity_calculator(centroids, pixels_x, pixels_y)
 
             for speeds in range(0,len(velocity_per_fly),len(v_x)):
                 all_velocities.append(np.nanmean(velocity_per_fly[0+speeds:speeds+len(v_x)]))
