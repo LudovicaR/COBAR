@@ -1,4 +1,7 @@
+import numpy as np
+
 import cropImages as crop
+import plots 
 
 """Dorsal"""
 path = 'Behavior_Flies_selected/Dorsal'
@@ -19,8 +22,22 @@ box4_size = [600, 700, 300, 1050]
 #fifth box: 
 box5_size = [770, 870, 300, 1050]
 
+# average size of the lanes (in pixels)
+size_1_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_1_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """GFP"""
@@ -42,8 +59,21 @@ box4_size = [615, 730, 300, 1050]
 #fifth box: 
 box5_size = [785, 890, 300, 1050]
 
+# average size of the lanes (in pixels)
+size_2_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_2_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """EagDN"""
@@ -65,8 +95,21 @@ box4_size = [550, 680, 300, 1050]
 #fifth box: 
 box5_size = [730, 835, 300, 1050]
 
+# average size of the lanes (in pixels)
+size_3_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_3_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """TNT"""
@@ -88,8 +131,21 @@ box4_size = [595, 715, 300, 1075]
 #fifth box: 
 box5_size = [760, 880, 300, 1070]
 
+# average size of the lanes (in pixels)
+size_4_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_4_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """ShalRNA"""
@@ -111,8 +167,21 @@ box4_size = [590, 715, 305, 1075]
 #fifth box: 
 box5_size = [760, 880, 305, 1075]
 
+# average size of the lanes (in pixels)
+size_5_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_5_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """IMPTNT"""
@@ -134,8 +203,19 @@ box4_size = [675, 795, 270, 1035]
 #fifth box: 
 box5_size = [] # No Flies
 
+# average size of the lanes (in pixels)
+size_6_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0]])
+
+size_6_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
 
 
 """Hunchback"""
@@ -157,6 +237,37 @@ box4_size = [565, 685, 300, 1050]
 #fifth box: 
 box5_size = [730, 845, 300, 1050]
 
+# average size of the lanes (in pixels)
+size_7_x = np.mean([box1_size[1]-box1_size[0], 
+                      box2_size[1]-box2_size[0], 
+                      box3_size[1]-box3_size[0], 
+                      box4_size[1]-box4_size[0], 
+                      box5_size[1]-box5_size[0]])
+
+size_7_y = np.mean([box1_size[3]-box1_size[2], 
+                      box2_size[3]-box2_size[2], 
+                      box3_size[3]-box3_size[2], 
+                      box4_size[3]-box4_size[2], 
+                      box5_size[3]-box5_size[2]])
+
 # to generate the .csv files with the centroids and head positions
-crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+#crop.analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, box5_size)
+
+# average size of all the lanes, for all the different genetic strains
+# this is an approximation used to calculate the velocity in mm/s instead of 
+# pixels/s, which is a more informative measure 
+avg_size_x = np.mean([size_1_x, size_2_x, size_3_x, size_4_x, size_5_x, size_6_x, size_7_x])
+avg_size_y = np.mean([size_1_y, size_2_y, size_3_y, size_4_y, size_5_y, size_6_y, size_7_y])
+
+
+## Create the plots with the flies velocities 
+
+plots.velocity_analysis("Dorsal",10)
+plots.velocity_analysis("GFP",10)
+plots.velocity_analysis("EagDN",10)
+plots.velocity_analysis("TNT",10)
+plots.velocity_analysis("ShalRNA",10)
+plots.velocity_analysis("IMPTNT",10)
+plots.velocity_analysis("Hunchback",10)
+
 
