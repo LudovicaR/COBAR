@@ -285,36 +285,36 @@ def analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, b
         
         # save the data frame in a .csv file, 
         # one for the centroids and one for the heads
-        centroidsDf.to_csv(folder+"/centroids.csv", index = None, header=True)
-        headsDf.to_csv(folder+"/heads.csv", index = None, header=True)
+        #centroidsDf.to_csv(folder+"/centroids.csv", index = None, header=True)
+        #headsDf.to_csv(folder+"/heads.csv", index = None, header=True)
         
         
         ## CREATE THE VIDEOS ##
         
         height, width, _ = box1.shape
         size = (width,height)
-        out = cv2.VideoWriter('./Videos/'+name_type+'_1_' + str(folders.index(folder)+1)+ '.mp4',cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
+        out = cv2.VideoWriter(folder+name_type+'_1_' + str(folders.index(folder)+1)+ '.mp4',cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
         for i in range(len(img_array1)):
             out.write(img_array1[i])
         out.release()
         
         height, width, _ = box2.shape
         size = (width,height)
-        out = cv2.VideoWriter('./Videos/'+name_type+'_2_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
+        out = cv2.VideoWriter(folder+name_type+'_2_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
         for i in range(len(img_array2)):
             out.write(img_array2[i])
         out.release()
         
         height, width, _ = box3.shape
         size = (width,height)
-        out = cv2.VideoWriter('./Videos/'+name_type+'_3_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
+        out = cv2.VideoWriter(folder+name_type+'_3_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
         for i in range(len(img_array3)):
             out.write(img_array3[i])
         out.release()
         
         height, width, _ = box4.shape
         size = (width,height)
-        out = cv2.VideoWriter('./Videos/'+name_type+'_4_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
+        out = cv2.VideoWriter(folder+name_type+'_4_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
         for i in range(len(img_array4)):
             out.write(img_array4[i])
         out.release()
@@ -322,7 +322,7 @@ def analyzeImages(path, name_type, box1_size, box2_size, box3_size, box4_size, b
         if (box5_size != []):
             height, width, _ = box5.shape
             size = (width,height)
-            out = cv2.VideoWriter('./Videos/'+name_type+'_5_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
+            out = cv2.VideoWriter(folder+name_type+'_5_' + str(folders.index(folder)+1)+ '.mp4' ,cv2.VideoWriter_fourcc(*'DIVX'), 1.5, size)
             for i in range(len(img_array5)):
                 out.write(img_array5[i])
             out.release()

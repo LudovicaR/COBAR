@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from math import atan, degrees
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -133,4 +134,217 @@ def velocity_analysis(gene_name, num_trials, pixels_x, pixels_y):
     velocity_boxplots(df_vel, "v_x",gene_name, num_trials)
     velocity_boxplots(df_vel, "v_y",gene_name, num_trials)
     
+def orientation_graph(df, fly_index, gene_name):
+    
+    plt.figure(figsize=[22,3.5])
+
+    plt.gcf().subplots_adjust(bottom=0.2)
+    
+    fly_x='fly'+str(fly_index)+'_x'
+    fly_y='fly'+str(fly_index)+'_y'
+    
+    ypix=122
+    xpix=760 
+    
+    o_x=(df[fly_x]*22)/xpix
+    o_y=(df[fly_y]*3.5)/ypix
+    
+    #plt.gca().invert_yaxis()
+    for i in range(0, len(o_x), 1):
+        if i == 0:
+            plt.plot(o_x[i:i+2],o_y[i:i+2], 'go-')
+            
+        elif i == (len(o_x)-1) :
+            plt.plot(o_x[i:i+2],o_y[i:i+2], 'bo-')
+        else: 
+            plt.plot( o_x[i:i+2],o_y[i:i+2], 'ro-')
+
+    plt.ylabel('Y coordinate of the centroid')
+    plt.xlabel('X coordinate of the centroid')
+    
+    plt.title('%s: Trace for fly #%s' %(gene_name, fly_index))
+    plt.savefig('%s_Trace_for_fly_#%s.png' %(gene_name, fly_index))
+    plt.show()
+
+def get_cardinal(head_x, head_y, centroid_x, centroid_y):
+    directions = {0:"N", 45:"NE", 90:"E", 135:"SE", 180:"S",
+              225:"SW", 270:"W", 315:"NW", 360:"N"}
+    
+    dx, dy = head_x - centroid_x, head_y - centroid_y
+    #dx, dy = a[0]-b[0], a[1]-b[1]
+    all_directions=[]
+    diff=dy/dx
+    i=0
+    for d in diff:
+        if dx.empty:
+            orientation = "N"
+        else: 
+            angle = degrees(atan(d))+90 #+90 to take into account TKinters coordinate system.      
+            if dx[i] > 0:
+                angle += 180
+            orientation = directions[min(directions, key=lambda x: abs(x-angle))]
+
+        all_directions.append(orientation)
+        i+=1
+    return all_directions
+
+def orientation_piechart(df_orientation, fly_index,gene_name):
+    
+    plt.figure()
+    
+    E = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'E'])
+    SE = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'SE'])
+    NE = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'NE'])
+    N = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'N'])
+    W = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'W'])
+    NW = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'NW'])
+    SW = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'SW'])
+    S = len(df_orientation['Orientation'][df_orientation['Orientation'] == 'S'])
+    
+    orient_labels={'W':[W], 'NW': [NW], 'N':[N], 'NE':[NE], 'E':[E],'SE':[SE], 'S':[S], 'SW':[SW]}
+    directions=pd.DataFrame(data=orient_labels)
+    #colors = ['#ff9999','#66b3ff','#99ff99','#ffcc99']
+    # Data to plot
+    
+    print(directions.iloc[0][directions.iloc[0]!=0].index.tolist())
+    labels = directions.iloc[0][directions.iloc[0]!=0].index.tolist()
+    sizes = directions.iloc[0][directions.iloc[0]!=0].tolist()
+    #colors_to_use = colors[len(directions.iloc[0][directions.iloc[0]!=0])]
+    
+
+    # Plot
+    plt.rcParams['font.size'] = 16
+    plt.pie(sizes, labels=labels,
+                    autopct='%1.1f%%', startangle=140)
+    
+    plt.title('%s: Orientation for fly #%s' %(gene_name, fly_index) )
+
+    plt.axis('equal')
+    plt.savefig('%s_Orientation_Pie_Chart_for_fly_#%s.png' %(gene_name, fly_index))
+    plt.show()
+
+def generate_orientation_plots():
+    """ ... """
+    
+    ## first plot for the Dorsal factor
+    folder = "Behavior_Flies_selected/Dorsal/Dorsal_2/"
+    fly_num = 2
+    gene_name="Dorsal"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## second plot for the eagdn factor
+    folder = "Behavior_Flies_selected/EagDN/EagDN_4/"
+    fly_num = 4
+    gene_name="EagDN"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## third plot for the gfp factor
+    folder = "Behavior_Flies_selected/GFP/GFP_9/"
+    fly_num = 2
+    gene_name="GFP"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## fourth plot for the hunchback factor
+    folder = "Behavior_Flies_selected/Hunchback/Hunchback_7/"
+    fly_num = 3
+    gene_name="Hunchback"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## fifth plot for the imptnt factor
+    folder = "Behavior_Flies_selected/IMPTNT/IMPTNT_4/"
+    fly_num = 2
+    gene_name="IMPTNT"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## sixth plot for the shalrna factor
+    folder = "Behavior_Flies_selected/ShalRNA/ShalRNA_5/"
+    fly_num = 3
+    gene_name="ShalRNA"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    ## seventh plot for the tnt factor
+    folder = "Behavior_Flies_selected/TNT/TNT_3/"
+    fly_num = 5
+    gene_name="TNT"
+    centroids = pd.read_csv(folder+"centroids.csv")
+    heads = pd.read_csv(folder+"heads.csv")
+    
+    # plots showing the movement of the fly on the lane 
+    orientation_graph(heads, fly_num,gene_name)
+    
+    all_directions = get_cardinal(centroids["fly"+str(fly_num)+"_x"], centroids["fly"+str(fly_num)+"_x"],\
+                                 heads["fly"+str(fly_num)+"_x"],heads["fly"+str(fly_num)+"_y"])
+    df_orientation=pd.DataFrame(data=all_directions, columns=['Orientation'])
+    
+    # plots the orientation of the fly's head 
+    orientation_piechart(df_orientation,fly_num,gene_name)
+    
+    
+ 
     

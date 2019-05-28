@@ -276,3 +276,8 @@ plots.velocity_analysis("ShalRNA",10, size_shalrna_x, size_shalrna_y)
 plots.velocity_analysis("IMPTNT",10, size_imptnt_x, size_imptnt_y)
 plots.velocity_analysis("Hunchback",10, size_hunchback_x, size_hunchback_y)
 
+## Create the plots for the orientation of the flies 
+plots.generate_orientation_plots()
+
+
+
