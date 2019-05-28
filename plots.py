@@ -224,7 +224,8 @@ def orientation_piechart(df_orientation, fly_index,gene_name):
     plt.show()
 
 def generate_orientation_plots():
-    """ ... """
+    """Code that generates the plots of the orientation traces and charts, 
+    for a chosen fly for each genetic strain."""
     
     ## first plot for the Dorsal factor
     folder = "Behavior_Flies_selected/Dorsal/Dorsal_2/"
